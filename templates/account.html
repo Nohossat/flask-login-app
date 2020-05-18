@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block head %}
+    {{ super() }}   
+{% endblock %}
+
+{% block content %}
+<div class="wrapper_account">
+    <h1>{{ user.username }} account</h1>
+    <div class='infos_bloc'>
+        <h2>Information personnelle</h2>
+
+        {% for key, info in user.items() %}
+            <div class='info_perso'>
+                <div class='name_info'>{{ key }}</div> :
+                {% if key == 'pwd' %}
+                    <div class='value_info'>*********</div>
+                {% else %}
+                    <div class='value_info'>{{ info }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class='actions'>
+        <h2>Actions sur le compte</h2>
+        <h3>Changer le mot de passe</h3>
+
+        {% if error %}
+            <div class="alert alert-danger" role="alert"> {{ error }}</div>
+        {% endif %}
+
+        {% if success %}
+            <div class="alert alert-success" role="alert"> {{ success }}</div>
+        {% endif %}
+
+        <form action="{{ url_for('change_pwd') }}" method='POST'>
+            <div class="form-group">
+        <div class="form-group">
+            <label for="ancien_pwd">Ancien mot de passe</label>
+            <input name="ancien_pwd" type="text" class="form-control" id="ancien_pwd">
+          </div>
+
+          <div class="form-group">
+            <label for="pwd">Nouveau mot de passe</label>
+            <input name="pwd" type="password" class="form-control" id="pwd">
+          </div>
+          <input type="hidden" name='username' value="{{ user.username }}">
+        <button type="submit" class="btn btn-primary">Envoyer</button>
+        </div>
+        </form>
+    </div>
+</div>
+   
+{% endblock %}

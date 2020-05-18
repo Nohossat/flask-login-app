@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block head %}
+    {{ super() }}   
+{% endblock %}
+
+{% block content %}
+<section class='wrapper'>
+    <h1>Welcome to Connect App</h1>
+    <h2> Please fill this form to access your account</h2>
+    {% if error %}
+        <div class="alert alert-danger" role="alert"> {{ error }}</div>
+    {% endif %}
+
+    {% if success %}
+        <div class="alert alert-success" role="alert"> {{ success }}</div>
+    {% endif %}
+    <div class="connect-forms">
+        <div class="signup">
+            <h3>Sign up</h3>
+            <form action="{{ url_for('create') }}" method='POST'>
+                <div class="form-group">
+                    <label for="firstname">First name</label>
+                    <input name="firstname" type="text" class="form-control" id="firstname">
+                  </div>
+                  <div class="form-group">
+                    <label for="lastname">Last name</label>
+                    <input name="lastname" type="text" class="form-control" id="lastname">
+                  </div>
+                  <div class="form-group">
+                    <label for="age">Age</label>
+                    <input name="age" type="text" class="form-control" id="age">
+                  </div>
+                <div class="form-group">
+                  <label for="email">Email address</label>
+                  <input name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input name="username" type="text" class="form-control" id="username">
+                  </div>
+                <div class="form-group">
+                  <label for="pwd">Password</label>
+                  <input name="pwd" type="password" class="form-control" id="pwd">
+                </div>
+                <button id="signup_btn" type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <div class="signin">
+            <h3>Sign in</h3>
+            <form action="{{ url_for('connect') }}" method='POST'>
+                <div class="form-group">
+                  <label for="username_signin">Username</label>
+                  <input type="text" class="form-control" id="username_signin" name="username_signin">
+                </div>
+                <div class="form-group">
+                  <label for="pwd_signin">Password</label>
+                  <input type="password" class="form-control" id="pwd_signin" name="pwd_signin">
+                </div>
+                <button id="signin_btn" type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+    
+</section>
+{% endblock %}
