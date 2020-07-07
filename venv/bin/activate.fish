@@ -29,7 +29,7 @@ end
 # unset irrelevant variables
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/Users/nohossat/Documents/simplon-vms/flask/connect/venv"
+set -gx VIRTUAL_ENV "/Users/nohossat/Documents/simplon_projets/flask/flask-login-app/venv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

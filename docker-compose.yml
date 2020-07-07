@@ -1,0 +1,7 @@
+version: '3.7'
+services:
+  web:
+    build: .
+    image: nohossat1/flask-example-cv-1
+    ports:
+    - "5000:5000"

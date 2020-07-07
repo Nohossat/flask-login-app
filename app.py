@@ -5,8 +5,6 @@ import os
 
 app = Flask(__name__)
 
-users = {'prenom': [], 'nom': [], 'age' : [], 'username': [], 'email': [], 'pwd': []}
-# df = pd.DataFrame(data=users)
 df = pd.read_csv('static/data/profils.csv')
 
 @app.route('/')
@@ -16,7 +14,7 @@ def sign(error=None):
 @app.route('/create', methods=['POST'])
 def create():
     df.loc[len(df)] = [request.form['firstname'], request.form['lastname'], request.form['age'], request.form['username'], request.form['email'], request.form['pwd']]
-    df.to_csv('static/data/profils.csv')
+    df.to_csv('static/data/profils.csv', index=False)
     return redirect(url_for('user', username=request.form['username']))
 
 @app.route('/connect', methods=['POST'])
@@ -29,22 +27,22 @@ def connect():
 def change_pwd(): 
     user = df.loc[df['username'] == request.form['username']]
     user = {'prenom': user.values[0][0], 'nom': user.values[0][1], 'age' : user.values[0][2], 'username': user.values[0][3], 'email': user.values[0][4], 'pwd': user.values[0][5]}
+    
     if user['pwd'] == request.form['ancien_pwd'] and len(request.form['pwd']) >= 6:
         update_user(request.form['username'], 'pwd', request.form['pwd'])
-        print(df)
         return render_template('account.html', user=user, success='Mot de passe mis à jour')
     else:
         return redirect(url_for('user', username=request.form['username']))
 
 def update_user(username, key, value):
     df[key].loc[df['username'] == username] = value
-    df.to_csv('static/data/profils.csv')
+    df.to_csv('static/data/profils.csv', index=False)
 
 @app.route('/user/<username>')
 def user(username, error=None, success=None):
     user = df.loc[df['username'] == username]
     if len(user) : 
-        user_info = {'prenom': user.values[0][1], 'nom': user.values[0][2], 'age' : user.values[0][3], 'username': user.values[0][4], 'email': user.values[0][5], 'pwd': user.values[0][6]}
+        user_info = {'prenom': user.values[0][0], 'nom': user.values[0][1], 'age' : user.values[0][2], 'username': user.values[0][3], 'email': user.values[0][4], 'pwd': user.values[0][5]}
         return render_template('account.html', user=user_info, error=error, success=success)
     redirect(url_for('/'))
    
