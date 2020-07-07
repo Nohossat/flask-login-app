@@ -1,8 +1,10 @@
 # Login app with Docker
 
-A simple Single Page Application to understand REST architecture with Flask. 
+A simple application to understand REST architecture with Flask. 
 
-You can either create an account and access your profile or connect directly to it.
+In the application, you have 2 options : 
+- Create an account and access your profil
+- Sign in to access directly your profil
 
 Tha application is containerize with Docker.
 
